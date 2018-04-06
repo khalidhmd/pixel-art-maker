@@ -1,16 +1,15 @@
 const canvasColor = document.getElementById('colorPicker');
 const canvasWidth = document.getElementById('inputWedth');
 const canvasHeight = document.getElementById('inputHeight');
+const pixelCanvas = document.getElementById('pixelCanvas');
+const sizePicker = document.getElementById('sizePicker');
 
-// When size is submitted by the user, call makeGrid()
-document.addEventListener('submit', function (event) {
+sizePicker.addEventListener('submit', function (event) {
     event.preventDefault();
-    document.getElementById('pixelCanvas').innerHTML = "";
+    pixelCanvas.innerHTML = "";
     makeGrid();
 });
 function makeGrid() {
-    
-    const table = document.getElementById('pixelCanvas');
     const tBody = document.createElement('tbody');
     for (let rows = 0; rows < canvasHeight.value; rows++) {
         const newRow = document.createElement('tr');
@@ -20,10 +19,15 @@ function makeGrid() {
         }
         tBody.appendChild(newRow);
     }
-    table.appendChild(tBody);
+    pixelCanvas.appendChild(tBody);
+
     document.addEventListener('click', function (event) {
         if (event.target.tagName == 'TD') {
-            event.target.style.backgroundColor = String(canvasColor.value);
+            if (event.target.classList.toggle('colored')) {
+                event.target.style.backgroundColor = String(canvasColor.value);
+            } else {
+                event.target.style.backgroundColor = 'white';
+            }
         }
     });
 }
