@@ -9,6 +9,17 @@ sizePicker.addEventListener('submit', function (event) {
     pixelCanvas.innerHTML = "";
     makeGrid();
 });
+
+pixelCanvas.addEventListener('click', function (event) {
+    if (event.target.tagName == 'TD') {
+        if (event.target.classList.toggle('colored')) {
+            event.target.style.backgroundColor = String(canvasColor.value);
+        } else {
+            event.target.style.backgroundColor = 'white';
+        }
+    }
+});
+
 function makeGrid() {
     const tBody = document.createElement('tbody');
     for (let rows = 0; rows < canvasHeight.value; rows++) {
@@ -20,14 +31,4 @@ function makeGrid() {
         tBody.appendChild(newRow);
     }
     pixelCanvas.appendChild(tBody);
-
-    document.addEventListener('click', function (event) {
-        if (event.target.tagName == 'TD') {
-            if (event.target.classList.toggle('colored')) {
-                event.target.style.backgroundColor = String(canvasColor.value);
-            } else {
-                event.target.style.backgroundColor = 'white';
-            }
-        }
-    });
 }
